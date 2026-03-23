@@ -8,9 +8,12 @@ resource "aws_security_group" "sg_app" {
   description = "Allow traffic to application instances from ALB"
   vpc_id      = var.vpc_id
 
-  tags = {
-    Name = "${var.name_prefix}-app-sg"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.name_prefix}-app-sg"
+    }
+  )
 }
 
 # Rules for APP
