@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
   name = "example-vpc"
@@ -45,14 +45,14 @@ module "app_asg" {
   source = "../../"
 
   name_prefix          = "example-app"
-  vpc_id              = module.vpc.vpc_id
+  vpc_id               = module.vpc.vpc_id
   private_subnet_ids   = module.vpc.private_subnets
-  sg_alb_id           = aws_security_group.alb_sg.id
+  sg_alb_id            = aws_security_group.alb_sg.id
   app_target_group_arn = aws_lb_target_group.app_tg.arn
-  
-  app_port            = 8080
-  app_protocol        = "HTTP"
-  app_user_data       = <<-EOT
+
+  app_port      = 8080
+  app_protocol  = "HTTP"
+  app_user_data = <<-EOT
     #!/bin/bash
     echo "Hello World" > index.html
     nohup python3 -m http.server 8080 &
