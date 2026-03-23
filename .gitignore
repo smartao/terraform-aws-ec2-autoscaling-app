@@ -35,3 +35,10 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+## Sergei additional ignores 
+*.lock.hcl
+*.txt
+*.log
+local
+AGENTS.md
