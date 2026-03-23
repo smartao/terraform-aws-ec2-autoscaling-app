@@ -1,3 +1,5 @@
+![license](https://img.shields.io/badge/License-MIT-orange?style=flat-square)
+
 # 📦 terraform-aws-ec2-autoscaling-app
 
 This Terraform module provisions a highly available and scalable infrastructure for applications running on EC2 instances within an Auto Scaling Group (ASG). It automatically configures the instance Security Group to accept traffic only from your Application Load Balancer (ALB) and integrates the instances into the provided Target Group.
