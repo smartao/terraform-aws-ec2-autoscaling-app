@@ -38,9 +38,9 @@ module "app_asg" {
   sg_alb_id            = "sg-alb-999"
   app_target_group_arn = "arn:aws:elasticloadbalancing:..."
   
-  app_port            = 8080
-  app_protocol        = "HTTP"
-  app_user_data       = <<-EOT
+  app_port      = 8080
+  app_protocol  = "HTTP"
+  app_user_data = <<-EOT
     #!/bin/bash
     echo "Hello World" > index.html
     nohup python3 -m http.server 8080 &
@@ -72,7 +72,7 @@ terraform plan
 ## 📑 Requirements and Assumptions
 
 - The `app_port` must be between 1 and 65535.
-- The `app_protocol` must be either `HTTP` or `HTTPS`.
+- The `app_protocol` must be either `HTTP` or `HTTPS`. This input is validated by the module interface, but is not currently used to change any AWS resource arguments.
 - The `disk_volume_size` must be between 20 and 16384 GB.
 - The `disk_volume_type` must be a valid AWS EBS volume type (e.g., `gp3`).
 - The `asg_min_size` must be at least 1.
@@ -102,7 +102,7 @@ The module exposes the values most consumers need to integrate with other resour
 
 This repository includes unit tests using the native Terraform test framework in [tests/unit.tftest.hcl](tests/unit.tftest.hcl).
 
-Run them with:
+Run them with Terraform 1.7 or newer:
 
 ```bash
 terraform init
@@ -170,7 +170,7 @@ No modules.
 | <a name="input_disk_volume_type"></a> [disk\_volume\_type](#input\_disk\_volume\_type) | The type of the EBS volume | `string` | `"gp3"` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The instance type for the EC2 instances | `string` | `"t3.micro"` | no |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix for naming resources | `string` | n/a | yes |
-| <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | List of private subnet IDs for application instances and internal ALB | `list(string)` | n/a | yes |
+| <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | List of private subnet IDs for application instances | `list(string)` | n/a | yes |
 | <a name="input_sg_alb_id"></a> [sg\_alb\_id](#input\_sg\_alb\_id) | The ID of the Security Group for the Application Load Balancer | `string` | n/a | yes |
 | <a name="input_ssm_parameter_name"></a> [ssm\_parameter\_name](#input\_ssm\_parameter\_name) | The name of the SSM parameter that contains the AMI ID Launch Template | `string` | `"/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The ID of the VPC | `string` | n/a | yes |
